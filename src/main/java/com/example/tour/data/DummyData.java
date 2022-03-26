@@ -1,11 +1,5 @@
 package com.example.tour.data;
 
-import com.example.tour.models.Quote;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class DummyData {
 
 //    static public List<Quote> DUMMY_DATA = new ArrayList<>(Arrays.asList(

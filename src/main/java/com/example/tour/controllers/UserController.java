@@ -2,8 +2,8 @@ package com.example.tour.controllers;
 
 //API Layer will be connected with the business logic layer (services)
 
-import com.example.tour.models.Quote;
-import com.example.tour.services.QuoteService;
+import com.example.tour.models.User;
+import com.example.tour.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,16 +12,23 @@ import java.util.List;
 @RequestMapping("users")
 public class UserController {
 
-    public QuoteService quoteService;
+    public UserService userService;
 
-    public UserController(QuoteService quoteService) {
-        this.quoteService = quoteService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping()
-    List<Quote> getQuotes()  {
-        return quoteService.getListOfQuotes();
+    @GetMapping
+    List<User> getUsers()  {
+        return userService.getAllUsers();
     }
+    @GetMapping("/{id}")
+    User getUser(@PathVariable long id)  {
+        return userService.getUserById(id);
+    }
+
+
+
 
 
 

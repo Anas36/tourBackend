@@ -2,8 +2,8 @@ package com.example.tour.services;
 
 //Business Logic layer
 
-import com.example.tour.data.QuoteRepo;
-import com.example.tour.models.Quote;
+import com.example.tour.data.UserRepo;
+import com.example.tour.models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,46 +11,19 @@ import java.util.List;
 @Service
 public class UserService {
 
-//    Logger logger = LoggerFactory.getLogger(QuoteService.class);
+    final UserRepo userRepo;
 
-    public UserService(QuoteRepo quoteRepo) {
-        this.quoteRepo = quoteRepo;
-    }
-    private QuoteRepo quoteRepo;
 
-    // =====================================================
-    public List<Quote> getListOfQuotes() {
-        return quoteRepo.findAll();
+    public UserService(UserRepo userRepo) {
+        this.userRepo = userRepo;
     }
 
-    // =====================================================
-    public void saveQuote(Quote quote) {
-        quoteRepo.save(quote);
+    public List<User> getAllUsers()
+    {
+        return userRepo.findAll();
     }
 
-    // =====================================================
-    public void deleteQuote(long id) {
-
-        if (!quoteRepo.existsById(id)) {
-            throw new IllegalStateException("Quote Not Exist");
-        } else {
-            quoteRepo.deleteById(id);
-
-        }
+    public User getUserById(long id) {
+        return userRepo.findById(id).orElse(null);
     }
-
-    // =====================================================
-//    public List<Quote> getQuoteWithAuthor(@Param(value = "author") String author) {
-//        List<Quote> quoteList = new ArrayList<>();
-//        quoteList = quoteRepo.findQuotesByAuthor(author);
-//        logger.info(" quoteList : " + String.valueOf(quoteList.size()));
-//        return quoteList;
-//    }
-
-    // =====================================================
-//    public Quote getQuote(long id) {
-//        return quoteRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Quote Not Found"));
-//    }
-    // =====================================================
-
 }
