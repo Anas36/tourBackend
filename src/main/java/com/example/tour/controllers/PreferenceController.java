@@ -29,6 +29,12 @@ public class PreferenceController {
     Preference getPreference(@PathVariable long id)  {
         return preferenceService.getPreferenceById(id);
     }
+    @GetMapping("/default")
+    public String getWord(){
+        return "Welcome name";
+    }
+
+
 
 
 
