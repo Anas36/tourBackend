@@ -26,13 +26,14 @@ public class VisitorController {
         return visitorService.getAllVisitors();
     }
     @GetMapping("/{id}")
-    User getVisitor(@PathVariable long id)  {
+    Visitor getVisitor(@PathVariable long id)  {
         return visitorService.getVisitorById(id);
     }
     @DeleteMapping("/{id}")
     void removeVisitor(@PathVariable long id)  {
         visitorService.deleteVisitorById(id);
     }
+
 
 
 

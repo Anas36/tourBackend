@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,10 +16,11 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Visitor extends User {
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
+public class Visitor extends User implements Serializable {
+    @ManyToMany(fetch = FetchType.LAZY,cascade = {
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.DETACH
     })
     @JoinTable(
             name = "visitor_preferences",
@@ -36,9 +38,11 @@ public class Visitor extends User {
     public void choosePreference(Preference preference) {
         chosenPreferences.add(preference);
     }
-    public void chooseManyPreferences(Set<Preference> preferences) {
+    public void chooseManyPreferences(Set<Preference> preferences) {  //Instead of Adding we will set a new set
         for (Preference preference : preferences)
         {
+            if(chosenPreferences.contains(preference))
+                continue;
             Preference p = new Preference(preference.getId(),preference.getPreference());
             chosenPreferences.add(preference);
         }

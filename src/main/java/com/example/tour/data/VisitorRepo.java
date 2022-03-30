@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VisitorRepo extends UserRepo{
+public interface VisitorRepo extends JpaRepository<Visitor, Long>{
 
 }

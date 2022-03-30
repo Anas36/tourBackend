@@ -19,20 +19,10 @@ public class VisitorService {
 
     public List<Visitor> getAllVisitors()
     {
-        List<User> tmp = visitorRepo.findAll();
-        List<Visitor> result = new ArrayList<>();
-        for (User user : tmp) {
-            if(user instanceof  Visitor)
-            {
-                result.add((Visitor) user);
-            }
-
-        }
-        return result;
-
+        return visitorRepo.findAll();
     }
 
-    public User getVisitorById(long id) {
+    public Visitor getVisitorById(long id) {
         return visitorRepo.findById(id).orElse(null);
     }
 

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -18,4 +19,7 @@ import javax.persistence.*;
 public class TourCreator extends User {
     @Column(name = "job")
     protected String job;
+
+    @OneToMany(mappedBy="tour_creator")
+    private Set<Tour> tours;
 }

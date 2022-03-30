@@ -4,6 +4,7 @@ package com.example.tour.controllers;
 
 import com.example.tour.models.Preference;
 import com.example.tour.models.Visitor;
+import com.example.tour.services.PreferenceService;
 import com.example.tour.services.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,14 @@ import java.util.Set;
 @RequestMapping("visitor/preferences")
 public class VisitorPreferencesController {
 
+
     private VisitorService visitorService;
+    private PreferenceService preferenceService;
 
     @Autowired
-    public VisitorPreferencesController(VisitorService visitorService) {
+    public VisitorPreferencesController(VisitorService visitorService, PreferenceService preferenceService) {
         this.visitorService = visitorService;
+        this.preferenceService = preferenceService;
     }
 
     @GetMapping("/{id}")
@@ -36,20 +40,33 @@ public class VisitorPreferencesController {
     }
 
     @PostMapping("/{id}")
-    void addVisitorPreferences(@PathVariable long id,@RequestBody Set<Preference> preferences) throws Exception {
+    String addVisitorPreferences(@PathVariable long id,@RequestBody Set<Preference> preferences) throws Exception {
         Visitor visitor;
         if (visitorService.getVisitorById(id) != null){
             visitor = (Visitor) visitorService.getVisitorById(id);
             System.out.println(visitor);
-
         }
         else
         {
             throw new Exception("there no visitor with this id");
         }
         System.out.println(preferences);
-        visitor.chooseManyPreferences(preferences);
+        visitor.setChosenPreferences(preferences);
+        for(Preference preference: preferences)
+        {
+            Preference tmpPreference = preferenceService.getPreferenceById(preference.getId());
+            tmpPreference.addVisitor(visitor);
+            preferenceService.savePrefernce(tmpPreference);
+        }
+
+        visitorService.saveVisitor(visitor);
+        return visitor.getChosenPreferences().toString();
     }
+
+
+//    Set<Visitor> getPreferenceFollowers(@PathVariable long id) throws Exception {
+//
+//    }
 
 
 

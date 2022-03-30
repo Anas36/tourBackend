@@ -5,6 +5,7 @@ import com.example.tour.models.Preference;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class PreferenceService {
@@ -31,5 +32,10 @@ public class PreferenceService {
             preferenceRepo.deleteById(id);
         }
 
+    }
+
+
+    public void savePrefernce(Preference preference) {
+        preferenceRepo.save(preference);
     }
 }

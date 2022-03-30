@@ -30,16 +30,26 @@ public class Preference {
         this.preference = preference;
     }
 
+    public void removeVisitor(Visitor visitor) {
+        //prevent endless loop
+        if (!followers.contains(visitor))
+            return ;
+        //remove the visitor
+        followers.remove(visitor);
+
+    }
+
     public void addVisitor(Visitor visitor) {
+        if (followers.contains(visitor))
+            return ;
         followers.add(visitor);
     }
 
+
+
+
     @Override
     public String toString() {
-        return "Preference{" +
-                "id=" + id +
-                ", preference='" + preference + '\'' +
-                ", followers=" + followers +
-                '}';
+        return "Preference{" + "id=" + id + ", preference='" + preference + '\'' + ", followers=" + followers + '}';
     }
 }
