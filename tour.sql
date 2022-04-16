@@ -351,30 +351,30 @@ INSERT INTO `preferences` VALUES (1,'History'),(2,'Fun'),(3,'Action'),(4,'Fasion
 UNLOCK TABLES;
 
 --
--- Table structure for table `rattings`
+-- Table structure for table `ratings`
 --
 
-DROP TABLE IF EXISTS `rattings`;
+DROP TABLE IF EXISTS `ratings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `rattings` (
+CREATE TABLE `ratings` (
   `visitor_id` int NOT NULL,
   `tour_id` int NOT NULL,
-  `ratting` int DEFAULT NULL,
+  `rating` int DEFAULT NULL,
   PRIMARY KEY (`visitor_id`,`tour_id`),
   KEY `tour_id` (`tour_id`),
-  CONSTRAINT `rattings_ibfk_1` FOREIGN KEY (`visitor_id`) REFERENCES `visitors` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `rattings_ibfk_2` FOREIGN KEY (`tour_id`) REFERENCES `tours` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`visitor_id`) REFERENCES `visitors` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`tour_id`) REFERENCES `tours` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `rattings`
+-- Dumping data for table `ratings`
 --
 
-LOCK TABLES `rattings` WRITE;
-/*!40000 ALTER TABLE `rattings` DISABLE KEYS */;
-/*!40000 ALTER TABLE `rattings` ENABLE KEYS */;
+LOCK TABLES `ratings` WRITE;
+/*!40000 ALTER TABLE `ratings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

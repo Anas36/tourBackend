@@ -22,7 +22,6 @@ public class User {
     String last_name;
     String birth;
     String gender;
-    String language;
     String email;
     String phone;
     String password;

@@ -1,23 +1,25 @@
 package com.example.tour.controllers;
 
-import com.example.tour.data.TourRepo;
 import com.example.tour.models.Tour;
-import com.example.tour.models.TourCreator;
+import com.example.tour.services.TourRatingService;
 import com.example.tour.services.TourService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("tours")
 public class TourController {
 
-    private TourService tourService;
 
-    public TourController(TourService tourService) {
+    private TourService tourService;
+    private TourRatingService tourRatingService;
+
+    @Autowired
+    public TourController(TourService tourService, TourRatingService tourRatingService) {
         this.tourService = tourService;
+        this.tourRatingService = tourRatingService;
     }
 
     @GetMapping
@@ -30,6 +32,11 @@ public class TourController {
         return tourService.getTourById(id);
     }
 
+    @GetMapping("/{id}/rating/")
+    public List<Object> getAvgTourRating(@PathVariable long id){
+        return tourRatingService.getTourRatings(id);
+    }
+
     @DeleteMapping("{id}")
     public String deleteTourById(@PathVariable long id){
         return tourService.deleteTourById(id);
@@ -39,6 +46,8 @@ public class TourController {
     public String addTour(@RequestBody Tour tour){
         return tourService.saveTour(tour);
     }
+
+
 
 
 

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,8 +17,12 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 public class Advertiser extends User {
+
+    @OneToMany(mappedBy = "advertiserId")
+    @JsonIgnore
+    List<Advertisement> advertisements;
 
     }
 

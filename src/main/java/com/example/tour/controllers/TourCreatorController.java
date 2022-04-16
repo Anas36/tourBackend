@@ -2,9 +2,9 @@ package com.example.tour.controllers;
 
 //API Layer will be connected with the business logic layer (services)
 
-import com.example.tour.models.User;
 import com.example.tour.models.TourCreator;
 import com.example.tour.services.TourCreatorService;
+import com.example.tour.services.TourRatingService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +14,12 @@ import java.util.List;
 public class TourCreatorController {
 
     public TourCreatorService tourCreatorService;
+    public TourRatingService tourRatingService;
 
-    public TourCreatorController(TourCreatorService tourCreatorService) {
+
+    public TourCreatorController(TourCreatorService tourCreatorService, TourRatingService tourRatingService) {
         this.tourCreatorService = tourCreatorService;
+        this.tourRatingService = tourRatingService;
     }
 
     @PostMapping()
@@ -38,6 +41,10 @@ public class TourCreatorController {
         }
 
     }
+    @GetMapping("/{id}/rating/")
+    Float getTourCreatorRating(@PathVariable long id){
+        return tourRatingService.getTourCreatorRating(id);
+    }
     @DeleteMapping("/{id}")
     void removeTourCreator(@PathVariable long id)  {
         tourCreatorService.deleteTourCreatorById(id);
@@ -46,3 +53,6 @@ public class TourCreatorController {
 
 
 }
+
+
+

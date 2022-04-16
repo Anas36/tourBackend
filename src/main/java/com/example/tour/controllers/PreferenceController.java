@@ -25,6 +25,7 @@ public class PreferenceController {
     List<Preference> getPreferences()  {
         return preferenceService.getAllPreferences();
     }
+
     @GetMapping("/{id}")
     Preference getPreference(@PathVariable long id)  {
         return preferenceService.getPreferenceById(id);

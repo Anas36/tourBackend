@@ -17,6 +17,10 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Visitor extends User implements Serializable {
+
+    @Column(name = "language")
+    String language;
+
     @ManyToMany(fetch = FetchType.LAZY,cascade = {
             CascadeType.MERGE,
             CascadeType.REFRESH,
@@ -34,6 +38,10 @@ public class Visitor extends User implements Serializable {
     )
     @JsonIgnore
     private Set<Preference> chosenPreferences =  new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "visitor")
+    Set<TourRating> ratings;
 
     public void choosePreference(Preference preference) {
         chosenPreferences.add(preference);

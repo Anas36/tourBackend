@@ -1,11 +1,14 @@
 package com.example.tour.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+//import com.example.tour.models.Certification;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 
@@ -21,5 +24,10 @@ public class TourCreator extends User {
     protected String job;
 
     @OneToMany(mappedBy="tour_creator")
+    @JsonIgnore
     private Set<Tour> tours;
+
+    @JsonIgnore
+     @OneToMany(mappedBy = "tourCreator",cascade = CascadeType.ALL)
+     private List<Certification> certifications;
 }

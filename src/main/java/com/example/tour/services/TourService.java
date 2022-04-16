@@ -37,7 +37,7 @@ public class TourService {
 
     public String saveTour(Tour tour) {
         tourRepo.save(tour);
-        return "added successfully";
+        return "added tour successfully with id : " + tour.getId();
     }
 
 

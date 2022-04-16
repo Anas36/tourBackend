@@ -1,14 +1,18 @@
 package com.example.tour.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tours")
@@ -22,31 +26,46 @@ public class Tour {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="tour_creator", nullable=false)
-    TourCreator tour_creator;
+    @JoinColumn(name="tour_creator")
+    private TourCreator tour_creator;
 
-    String name;
+    private String name;
 
-    String location;
+    private String location;
 
-    int distance;
+    private int distance;
 
-    Timestamp departure_date;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp departure_date;
 
-    Timestamp arrival_date;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp arrival_date;
 
-    String cover_photo;
+    private String cover_photo;
 
-    int max_participants;
+    private int max_participants;
 
-    int cost;
+    private int cost;
 
-    int visitors_joined;
+    private int visitors_joined;
 
-    Date creation_date;
+    private Date creation_date = new Date();
 
-    String category;
+    private String category;
 
-    String description;
+    private String description;
+
+    @OneToMany(mappedBy = "tour")
+    @JsonIgnore
+    private Set<TourRating> ratings;
+
+    @OneToMany(mappedBy = "tourId")
+    @JsonIgnore
+    List<Advertisement> advertisements;
+
+    @PrePersist
+    private void onCreate() {
+        creation_date = new Date();
+    }
 
 }
