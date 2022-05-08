@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -62,6 +63,10 @@ public class Tour {
     @OneToMany(mappedBy = "tourId")
     @JsonIgnore
     List<Advertisement> advertisements;
+
+    @OneToMany
+    @JsonIgnore
+    private Set<Ticket> tickets = new HashSet<>();
 
     @PrePersist
     private void onCreate() {

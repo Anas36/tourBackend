@@ -23,9 +23,9 @@ public class Ticket {
     @Column(name = "id")
     private long id;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "visitor_id")
-    private List<Visitor> visitors;
+    private Visitor visitors;
 
     @ManyToOne
     @JoinColumn(name = "tour_id")
@@ -35,3 +35,9 @@ public class Ticket {
     private LocalDate date;
 
 }
+
+
+
+
+
+

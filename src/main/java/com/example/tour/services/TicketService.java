@@ -44,7 +44,8 @@ public class TicketService {
     }
 
 
-    public void savePrefernce(Ticket ticket) {
+    public String saveTicket(Ticket ticket) {
         ticketRepo.save(ticket);
+        return "ticket with id : "+ticket.getId()+" been added";
     }
 }

@@ -4,6 +4,8 @@ package com.example.tour.controllers;
 
 import com.example.tour.models.Ticket;
 import com.example.tour.models.Tour;
+import com.example.tour.models.TourRating;
+import com.example.tour.models.Visitor;
 import com.example.tour.services.TicketService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,11 @@ public class TicketController {
         return ticketService.getAllTickets();
     }
 
+    @PostMapping("/")
+    String addTourRating(@RequestBody Ticket ticket) {
+        return  ticketService.saveTicket(ticket);
+    }
+
     @GetMapping("/{id}")
     Ticket getTicket(@PathVariable long id)  {
         return ticketService.getTicketById(id);
@@ -36,6 +43,9 @@ public class TicketController {
         return ticketService.isTicketAvailable(tour,date);
     }
 
+//    List<Visitor> getBookedVisitorsbyTourCreatorIdAndTourId() {
+//        return t
+//    }
 
 
 

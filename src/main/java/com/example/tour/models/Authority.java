@@ -23,5 +23,19 @@ public class Authority extends User {
     @OneToMany(mappedBy = "authority",cascade = CascadeType.ALL)
     List<Certification> acceptedCertifications;
 
+    @Override
+    public String toString() {
+        return "Authority{" +
+                "id=" + id +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", birth='" + birth + '\'' +
+                ", gender='" + gender + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
+}
 

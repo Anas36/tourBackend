@@ -12,12 +12,12 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CheckPointKey implements Serializable {
+public class ExtraDescriptionKey implements Serializable {
 
     private long id;
 
-    @Column(name = "tour_id",nullable=false)
-    private long tourId;
+    @Column(name = "tour_creator_id")
+    private long tourCreatorId;
 
     @Column(name = "object_id",nullable=false)
     private long objectId;
@@ -28,5 +28,15 @@ public class CheckPointKey implements Serializable {
     @Column(name = "room_id",nullable=false)
     private long roomId;
 
+
+    @Override
+    public String toString() {
+        return "DescriptionKey{" +
+                "id=" + id +
+                ", objectId=" + objectId +
+                ", placeId=" + placeId +
+                ", roomId=" + roomId +
+                '}';
+    }
 }
 

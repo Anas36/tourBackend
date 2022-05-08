@@ -1,8 +1,6 @@
 package com.example.tour.models;
 
-
-import com.example.tour.models.CompositeKey.CheckPointKey;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.example.tour.models.CompositeKey.DescriptionPreferencesKey;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -10,17 +8,28 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "checkPoints")
+@Table(name = "description_preferences")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@IdClass(CheckPointKey.class)
-public class Checkpoint {
+@IdClass(DescriptionPreferencesKey.class)
+public class DescriptionPreferences {
+
 
     @Id
-    @Column(name = "id")
-    private long id;
+    long descriptionId;
+
+    @Id
+    @Column(name = "preference_id",nullable=false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    long preferenceId;
+
+    @Id
+    @Column(name = "tour_creator_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private long tourCreatorId;
 
     @Id
     @Column(name = "object_id",nullable=false)
@@ -37,20 +46,25 @@ public class Checkpoint {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private long roomId;
 
-    @Id
-    @Column(name = "tour_id",nullable=false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private long tourId;
 
-
-    @ManyToOne
-    @JoinColumn(name = "id",referencedColumnName = "id",insertable=false, updatable=false,nullable=false)
+    @ManyToOne(optional=false,cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id",referencedColumnName="room_id",insertable=false, updatable=false,nullable=false)
     @JoinColumn(name = "place_id",referencedColumnName="place_id",insertable=false, updatable=false,nullable=false)
+    @JoinColumn(name = "tour_creator_id",referencedColumnName="tour_creator_id",insertable=false, updatable=false,nullable=false)
     @JoinColumn(name = "object_id",referencedColumnName="object_id",insertable=false, updatable=false,nullable=false)
-    @JoinColumn(name = "tour_id",referencedColumnName="tour_id",insertable=false, updatable=false,nullable=false)
-    @JsonBackReference
-    private Checkpoint previousCheckPoint;
+    @JoinColumn(name = "description_id",referencedColumnName="id",insertable=false, updatable=false,nullable=false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private ExtraDescription extraDescription;
+
+    @ManyToOne(optional=false,cascade = CascadeType.ALL)
+    @JoinColumn(name = "tour_creator_id",referencedColumnName="user_id",insertable=false, updatable=false,nullable=false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private TourCreator tourCreator;
+
+    @ManyToOne(optional=false,cascade = CascadeType.ALL)
+    @JoinColumn(name = "preference_id",referencedColumnName="id",insertable=false, updatable=false,nullable=false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Preference preference;
 
     @ManyToOne(optional=false,cascade = CascadeType.ALL)
     @JoinColumn(name = "place_id",referencedColumnName="id",insertable=false, updatable=false,nullable=false)
@@ -60,7 +74,7 @@ public class Checkpoint {
     @ManyToOne(optional=false,cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id",referencedColumnName="id",insertable=false, updatable=false,nullable=false)
     @JoinColumn(name = "place_id",referencedColumnName="place_id",insertable=false, updatable=false,nullable=false)
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Room room;
 
     @ManyToOne(optional=false,cascade = CascadeType.ALL)
@@ -70,34 +84,5 @@ public class Checkpoint {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Object object;
 
-    @ManyToOne(optional=false,cascade = CascadeType.ALL)
-    @JoinColumn(name = "tour_id",referencedColumnName="id",insertable=false, updatable=false,nullable=false)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Tour tour;
-
-
-    @Override
-    public String toString() {
-        if(previousCheckPoint != null){
-            return "Checkpoint{" +
-                    "id=" + id +
-                    ", objectId=" + objectId +
-                    ", placeId=" + placeId +
-                    ", roomId=" + roomId +
-                    ", tourId=" + tourId +
-                    ", previousCheckPoint=" + previousCheckPoint.getId() +
-                    '}';}
-        else
-        {
-            return "Checkpoint{" +
-                "id=" + id +
-                ", objectId=" + objectId +
-                ", placeId=" + placeId +
-                ", roomId=" + roomId +
-                ", tourId=" + tourId +
-                ", previousCheckPoint=" + null +
-                '}';}
-
-        }
 
 }

@@ -41,4 +41,7 @@ public class TourService {
     }
 
 
+    public List<Tour> getToursByTourCreatorId(long id) {
+        return tourRepo.findToursByTourCreatorId(id);
+    }
 }

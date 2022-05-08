@@ -39,6 +39,10 @@ public class Visitor extends User implements Serializable {
     @JsonIgnore
     private Set<Preference> chosenPreferences =  new HashSet<>();
 
+    @OneToMany
+    @JsonIgnore
+    private Set<Ticket> tickets = new HashSet<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "visitor")
     Set<TourRating> ratings;
@@ -57,12 +61,12 @@ public class Visitor extends User implements Serializable {
     }
 
     public String printChoosePreference() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (Preference preference : chosenPreferences)
         {
-            result += "{"+preference.toString()+"}, ";
+            result.append("{").append(preference.toString()).append("}, ");
         }
-        return result;
+        return result.toString();
     }
 
 

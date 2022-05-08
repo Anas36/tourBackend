@@ -29,6 +29,7 @@ public class Room  {
 
     @Id
     @Column(name = "place_id",nullable=false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private long placeId;
 
     private String name;
