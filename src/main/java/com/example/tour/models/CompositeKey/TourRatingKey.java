@@ -1,19 +1,16 @@
 package com.example.tour.models.CompositeKey;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
-@Embeddable
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class TourRatingKey implements Serializable {
     @Column(name = "visitor_id")
     Long visitorId;
