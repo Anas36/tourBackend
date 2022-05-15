@@ -42,6 +42,9 @@ public class Checkpoint {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private long tourId;
 
+    @Column(name = "time")
+    private int time;
+
 
     @ManyToOne
     @JoinColumn(name = "id",referencedColumnName = "id",insertable=false, updatable=false,nullable=false)

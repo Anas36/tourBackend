@@ -32,6 +32,8 @@ public class Place {
 
     String location;
 
+    private boolean accepted;
+
     @OneToMany(mappedBy = "place")
     @JsonIgnore
     private Set<Room> rooms;
@@ -39,5 +41,8 @@ public class Place {
     @OneToMany(mappedBy = "placeId")
     @JsonIgnore
     private Set<Object> objects;
+
+
+
 
 }

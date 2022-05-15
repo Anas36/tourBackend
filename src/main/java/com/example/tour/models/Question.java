@@ -63,6 +63,9 @@ public class Question {
     @Column(name = "fact",nullable=false)
     private String fact;
 
+    @Column(name = "clue",nullable=false)
+    private String clue;
+
 
     @ManyToOne
     @JoinColumn(name = "check_point_id",referencedColumnName = "id",insertable=false, updatable=false,nullable=false)
