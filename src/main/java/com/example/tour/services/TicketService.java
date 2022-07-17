@@ -3,19 +3,18 @@ package com.example.tour.services;
 import com.example.tour.data.TicketRepo;
 import com.example.tour.models.Ticket;
 import com.example.tour.models.Tour;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TicketService {
-    final TicketRepo ticketRepo;
 
+    private final TicketRepo ticketRepo;
 
-    public TicketService(TicketRepo ticketRepo) {
-        this.ticketRepo = ticketRepo;
-    }
 
     public List<Ticket> getAllTickets()
     {

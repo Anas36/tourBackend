@@ -4,6 +4,7 @@ package com.example.tour.controllers;
 
 import com.example.tour.models.Certification;
 import com.example.tour.services.CertificationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("certifications")
+@RequiredArgsConstructor
 public class CertificationController {
 
     public CertificationService certificationService;

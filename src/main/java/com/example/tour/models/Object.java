@@ -2,9 +2,7 @@ package com.example.tour.models;
 
 
 import com.example.tour.models.CompositeKey.ObjectKey;
-import com.example.tour.models.CompositeKey.RoomKey;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,6 +52,9 @@ public class Object implements Serializable {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Room room;
 
+    public void setCoverPhoto() {
+        this.coverPhoto = "Object_"+id+"_Room_"+roomId+"_Place_"+placeId+"_Photo";
+    }
 
     @Override
     public String toString() {

@@ -14,8 +14,10 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @AllArgsConstructor
-//@NoArgsConstructor
 public class Admin extends User {
 
+    public void setRole() {
+        super.setRole("ROLE_ADMIN");
     }
+}
 

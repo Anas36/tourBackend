@@ -4,38 +4,36 @@ package com.example.tour.controllers;
 
 import com.example.tour.models.Checkpoint;
 import com.example.tour.services.CheckpointService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("checkpoints")
+@RequiredArgsConstructor
 public class CheckpointController {
 
-    public CheckpointService checkpointService;
+    private final CheckpointService checkpointService;
 
-    public CheckpointController(CheckpointService checkpointService) {
-        this.checkpointService = checkpointService;
-    }
 
-    @GetMapping
-    List<Checkpoint> getCheckpoints()  {
-        return checkpointService.getAllCheckpoints();
-    }
+//    @GetMapping
+//    List<Checkpoint> getCheckpoints()  {
+//        return checkpointService.getAllCheckpoints();
+//    }
 
-    @PostMapping
+    @PostMapping("checkpoint")
     String addCheckPoint(@RequestBody Checkpoint checkpoint) throws Exception {
         System.out.println(checkpoint.toString());
         return checkpointService.saveCheckpoint(checkpoint);
     }
 
 
-    @GetMapping("/tour/{tourId}")
+    @GetMapping("/tour/{tourId}/checkpoints")
     List<Checkpoint> getTourCheckpoint(@PathVariable long tourId)  {
         return checkpointService.getCheckpointByTourId(tourId);
     }
 
-    @GetMapping("/tour/{tourId}/{checkpointId}")
+    @GetMapping("/tour/{tourId}/checkpoint/{checkpointId}")
     Checkpoint getTourCheckpointById(@PathVariable long tourId,@PathVariable long checkpointId)  {
         return checkpointService.getTourCheckpointById(tourId,checkpointId);
     }

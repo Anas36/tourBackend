@@ -2,19 +2,17 @@ package com.example.tour.services;
 
 import com.example.tour.data.PreferenceRepo;
 import com.example.tour.models.Preference;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class PreferenceService {
-    final PreferenceRepo preferenceRepo;
 
+    private final PreferenceRepo preferenceRepo;
 
-    public PreferenceService(PreferenceRepo preferenceRepo) {
-        this.preferenceRepo = preferenceRepo;
-    }
 
     public List<Preference> getAllPreferences()
     {

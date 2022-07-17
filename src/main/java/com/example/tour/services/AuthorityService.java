@@ -2,19 +2,17 @@ package com.example.tour.services;
 
 import com.example.tour.data.AuthorityRepo;
 import com.example.tour.models.Authority;
-import com.example.tour.models.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AuthorityService {
-    final AuthorityRepo authorityRepo;
 
+    private final AuthorityRepo authorityRepo;
 
-    public AuthorityService(AuthorityRepo authorityRepo) {
-        this.authorityRepo = authorityRepo;
-    }
 
     public List<Authority> getAllAuthoritys()
     {
@@ -33,6 +31,10 @@ public class AuthorityService {
             authorityRepo.deleteById(id);
         }
 
+    }
+
+    public boolean authorityExists(String email) {
+        return authorityRepo.existsByEmail(email);
     }
 
     public void saveAuthority(Authority authority) {

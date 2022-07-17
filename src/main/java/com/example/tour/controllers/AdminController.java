@@ -4,29 +4,35 @@ package com.example.tour.controllers;
 
 import com.example.tour.models.Admin;
 import com.example.tour.services.AdminService;
+import com.example.tour.services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("admins")
+@RequiredArgsConstructor
 public class AdminController {
 
-    public AdminService adminService;
-
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
-    }
+    private final AdminService adminService;
+    private final UserService userService;
 
     @PostMapping()
-    void addAdmin(@RequestBody Admin admin) {adminService.saveAdmin(admin);}
+    Admin addAdmin(@RequestBody Admin admin) {
+        admin.setRole();
+        return (Admin) userService.saveUser(admin);
+    }
+
     @GetMapping
     List<Admin> getAdmins()  {
         return adminService.getAllAdmins();
     }
+
     @GetMapping("/{id}")
     Admin getAdmin(@PathVariable long id)  {
         return adminService.getAdminById(id);
     }
+
     @DeleteMapping("/{id}")
     void removeAdmin(@PathVariable long id)  {
         adminService.deleteAdminById(id);

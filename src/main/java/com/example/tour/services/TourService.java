@@ -2,17 +2,16 @@ package com.example.tour.services;
 
 import com.example.tour.data.TourRepo;
 import com.example.tour.models.Tour;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TourService {
-    final TourRepo tourRepo;
 
-    public TourService(TourRepo tourRepo) {
-        this.tourRepo = tourRepo;
-    }
+    private final TourRepo tourRepo;
 
 
     public List<Tour> getAllTours()
@@ -36,7 +35,8 @@ public class TourService {
     }
 
     public String saveTour(Tour tour) {
-        tourRepo.save(tour);
+       tourRepo.save(tour);
+       tour.setCover_photo();
         return "added tour successfully with id : " + tour.getId();
     }
 

@@ -3,19 +3,17 @@ package com.example.tour.services;
 import com.example.tour.data.TourRatingRepo;
 import com.example.tour.data.selectInterface.AvgTourRating;
 import com.example.tour.models.TourRating;
-import net.minidev.json.JSONObject;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TourRatingService {
-    final TourRatingRepo tourRatingRepo;
 
+    private final TourRatingRepo tourRatingRepo;
 
-    public TourRatingService(TourRatingRepo tourRatingRepo) {
-        this.tourRatingRepo = tourRatingRepo;
-    }
 
     public List<Object> getTourRatings(long id){
         return tourRatingRepo.findByTourId(id);
@@ -34,4 +32,16 @@ public class TourRatingService {
     public List<AvgTourRating> getTopTours() {
         return tourRatingRepo.findTopTour();
     }
+
+    public List<TourRating> getRatings() {
+        return tourRatingRepo.findAll();
+    }
+
+    public List<Object> getVisitorRatings(long id){
+        return tourRatingRepo.findByVisitorId(id);
+    }
+
+//    public void updateRecommendedRatings(List<TourRating> ratings) {
+//        tourRatingRepo.updateRecommendedRatings(ratings);
+//    }
 }

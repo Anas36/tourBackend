@@ -3,22 +3,19 @@ package com.example.tour.services;
 import com.example.tour.data.VisitorRepo;
 import com.example.tour.models.Preference;
 import com.example.tour.models.Visitor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class VisitorPreferencesService {
-    final VisitorRepo visitorRepo;
-    private VisitorService visitorService;
 
+    private final VisitorRepo visitorRepo;
+    private final VisitorService visitorService;
 
-    @Autowired
-    public VisitorPreferencesService(VisitorRepo visitorRepo, VisitorService visitorService) {
-        this.visitorRepo = visitorRepo;
-        this.visitorService = visitorService;
-    }
 
 
 

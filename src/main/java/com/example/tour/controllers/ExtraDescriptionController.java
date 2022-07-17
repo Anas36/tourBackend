@@ -3,49 +3,32 @@ package com.example.tour.controllers;
 //API Layer will be connected with the business logic layer (services)
 
 import com.example.tour.models.CompositeKey.ExtraDescriptionKey;
-import com.example.tour.models.CompositeKey.GeneralDescriptionKey;
-import com.example.tour.models.DescriptionPreferences;
 import com.example.tour.models.ExtraDescription;
-import com.example.tour.models.GeneralDescription;
 import com.example.tour.services.ExtraDescriptionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("descriptions/extra")
+@RequiredArgsConstructor
 public class ExtraDescriptionController {
 
-    public ExtraDescriptionService extraDescriptionService;
+    private final ExtraDescriptionService extraDescriptionService;
 
-    public ExtraDescriptionController(ExtraDescriptionService extraDescriptionService) {
-        this.extraDescriptionService = extraDescriptionService;
-    }
 
-    @GetMapping
-    List<ExtraDescription> getExtraDescriptions()  {
-        return extraDescriptionService.getAllDescriptions();
-    }
+//    @GetMapping
+//    List<ExtraDescription> getExtraDescriptions()  {
+//        return extraDescriptionService.getAllDescriptions();
+//    }
 
-    @PostMapping
+    @PostMapping("descriptions/extra")
     String addExtraDescription(@RequestBody ExtraDescription description) throws Exception {
         System.out.println(description.toString());
         return extraDescriptionService.saveDescription(description);
     }
 
-    @PostMapping("/preferences")
-    String addDescriptionPreferences(@RequestBody DescriptionPreferences descriptionPreferences) {
-        System.out.println(descriptionPreferences.toString());
-        return extraDescriptionService.saveDescriptionPreferences(descriptionPreferences);
-    }
-
-
-
-
-
-    @GetMapping("/{placeId}/{roomId}/{objectId}/{tourCreatorId}/{descriptionId}")
-    ExtraDescription getGeneralDescription(@PathVariable long tourCreatorId, @PathVariable long placeId, @PathVariable long roomId, @PathVariable long objectId, @PathVariable long descriptionId) throws Exception {
-        ExtraDescriptionKey descriptionKey = new ExtraDescriptionKey(descriptionId,tourCreatorId,objectId,placeId,roomId);
+    @GetMapping("tour/{tourId}/checkPoint/{checkPointId}/description/{descriptionId}")
+    ExtraDescription getGeneralDescription(@PathVariable long checkPointId, @PathVariable long tourId, @PathVariable long descriptionId) throws Exception {
+        ExtraDescriptionKey descriptionKey = new ExtraDescriptionKey(descriptionId,tourId,checkPointId);
         return extraDescriptionService.getExtraDescriptionById(descriptionKey);
     }
 

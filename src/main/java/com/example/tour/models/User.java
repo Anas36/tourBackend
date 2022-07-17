@@ -20,38 +20,46 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
     @NotNull
     @NotEmpty
-    String first_name;
+    private String first_name;
 
     @NotNull
     @NotEmpty
-    String last_name;
+    private String last_name;
 
     @NotNull
     @NotEmpty
-    String birth;
+    private String birth;
 
     @NotNull
     @NotEmpty
-    String gender;
+    private String gender;
 
     @ValidEmail
     @NotNull
     @NotEmpty
-    String email;
+    private String email;
 
-    String phone;
+    private String phone;
 
     @NotNull
     @NotEmpty
-    String password;
+    private String password;
 
-    String address;
+    private String address;
 
-    String photo;
+    private String photo = "User_"+id+"_Photo";
+
+    @JoinColumn(name = "role")
+    private String role;
+
+
+    public void setPhoto() {
+        this.photo = "User_"+id+"_Photo";
+    }
 
 
 }

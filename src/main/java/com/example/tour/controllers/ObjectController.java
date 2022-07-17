@@ -28,7 +28,7 @@ public class ObjectController {
         return objectService.getAllObjects();
     }
 
-    @GetMapping("/object/{placeId}/{roomId}/{objectId}")
+    @GetMapping("/place/{placeId}/room/{roomId}/object/{objectId}")
     Object getObjectById(@PathVariable long placeId,@PathVariable long roomId,@PathVariable long objectId) throws Exception {
         ObjectKey objectKey = new ObjectKey(objectId,placeId,roomId);
         return objectService.getObjectById(objectKey);

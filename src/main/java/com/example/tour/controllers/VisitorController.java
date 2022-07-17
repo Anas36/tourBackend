@@ -2,15 +2,14 @@ package com.example.tour.controllers;
 
 //API Layer will be connected with the business logic layer (services)
 
-import com.example.tour.models.CompositeKey.TourRatingKey;
 import com.example.tour.models.Preference;
 import com.example.tour.models.TourRating;
-import com.example.tour.models.User;
 import com.example.tour.models.Visitor;
 import com.example.tour.services.PreferenceService;
 import com.example.tour.services.TourRatingService;
+import com.example.tour.services.UserService;
 import com.example.tour.services.VisitorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,19 +17,13 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("visitors")
+@RequiredArgsConstructor
 public class VisitorController {
 
-    public VisitorService visitorService;
-    private PreferenceService preferenceService;
-    private TourRatingService tourRatingService;
-
-    @Autowired
-    public VisitorController(VisitorService visitorService, PreferenceService preferenceService, TourRatingService tourRatingService) {
-        this.visitorService = visitorService;
-        this.preferenceService = preferenceService;
-        this.tourRatingService = tourRatingService;
-    }
-
+    private final VisitorService visitorService;
+    private final PreferenceService preferenceService;
+    private final TourRatingService tourRatingService;
+    private final UserService userService;
 
 
     @GetMapping
@@ -43,11 +36,21 @@ public class VisitorController {
         return visitorService.getVisitorById(id);
     }
 
+    @PostMapping()
+    Visitor addVisitor(@RequestBody Visitor visitor)  {
+        visitor.setRole();
+        return (Visitor) userService.saveUser(visitor);
+    }
+
     @PostMapping("/rating/")
     String addTourRating(@RequestBody TourRating tourRating) {
         return  tourRatingService.saveTourRating(tourRating);
     }
 
+    @GetMapping("{id}/ratings")
+    List<Object> getRatings(@PathVariable long id) {
+        return tourRatingService.getVisitorRatings(id);
+    }
     @DeleteMapping("/{id}")
     void removeVisitor(@PathVariable long id) {
         visitorService.deleteVisitorById(id);

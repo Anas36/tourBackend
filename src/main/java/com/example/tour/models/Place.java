@@ -1,10 +1,12 @@
 package com.example.tour.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -18,20 +20,27 @@ public class Place {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
-    String name;
+    @Column
+    private String name;
 
-    String type;
+    @Column
+    private String type;
 
-    String description;
+    @Column
+    private String description;
 
-    String email;
+    @Column
+    private String email;
 
-    String phone_number;
+    @Column
+    private String phone_number;
 
-    String location;
+    @Column
+    private String location;
 
+    @Column
     private boolean accepted;
 
     @OneToMany(mappedBy = "place")

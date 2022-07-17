@@ -4,8 +4,6 @@ package com.example.tour.controllers;
 
 import com.example.tour.models.Ticket;
 import com.example.tour.models.Tour;
-import com.example.tour.models.TourRating;
-import com.example.tour.models.Visitor;
 import com.example.tour.services.TicketService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +15,7 @@ import java.util.List;
 @RequestMapping("tickets")
 public class TicketController {
 
-    public TicketService ticketService;
+    private final TicketService ticketService;
 
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
@@ -42,6 +40,8 @@ public class TicketController {
     boolean isTicketAvailable(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @RequestParam Tour tour)  {
         return ticketService.isTicketAvailable(tour,date);
     }
+
+
 
 //    List<Visitor> getBookedVisitorsbyTourCreatorIdAndTourId() {
 //        return t

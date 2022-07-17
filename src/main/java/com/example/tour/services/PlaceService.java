@@ -2,18 +2,17 @@ package com.example.tour.services;
 
 import com.example.tour.data.PlaceRepo;
 import com.example.tour.models.Place;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PlaceService {
-    final PlaceRepo placeRepo;
 
+    private final PlaceRepo placeRepo;
 
-    public PlaceService(PlaceRepo placeRepo) {
-        this.placeRepo = placeRepo;
-    }
 
     public List<Place> getAllPlaces()
     {
@@ -34,6 +33,12 @@ public class PlaceService {
 
     }
 
+    public String placeAcceptance(long id,boolean acceptance) {
+        Place place = placeRepo.getById(id);
+        place.setAccepted(acceptance);
+        placeRepo.save(place);
+        return "place acceptance been changed";
+    }
     public String savePlace(Place place) {
         placeRepo.save(place);
         return "place been added successfully";

@@ -1,12 +1,14 @@
 package com.example.tour.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,7 +21,7 @@ import java.util.Set;
 public class Visitor extends User implements Serializable {
 
     @Column(name = "language")
-    String language;
+    private String language;
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = {
             CascadeType.MERGE,
@@ -69,23 +71,7 @@ public class Visitor extends User implements Serializable {
         return result.toString();
     }
 
-
-
-    @Override
-    public String toString() {
-        return "Visitor{" +
-                "id=" + id +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", birth='" + birth + '\'' +
-                ", gender='" + gender + '\'' +
-                ", language='" + language + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
-//                ", chosenPreferences=" + printChoosePreference() +
-                '}';
+    public void setRole() {
+        super.setRole("ROLE_VISITOR");
     }
-
 }

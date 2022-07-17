@@ -21,7 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class TourCreator extends User {
     @Column(name = "job")
-    protected String job;
+    private String job;
 
     @OneToMany(mappedBy="tour_creator")
     @JsonIgnore
@@ -30,4 +30,8 @@ public class TourCreator extends User {
     @JsonIgnore
      @OneToMany(mappedBy = "tourCreator",cascade = CascadeType.ALL)
      private List<Certification> certifications;
+
+    public void setRole() {
+        super.setRole("ROLE_TOUR_CREATOR");
+    }
 }

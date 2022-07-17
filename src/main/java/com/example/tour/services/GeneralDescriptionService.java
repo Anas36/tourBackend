@@ -7,25 +7,20 @@ import com.example.tour.data.GeneralDescriptionRepo;
 import com.example.tour.data.ObjectRepo;
 import com.example.tour.models.CompositeKey.GeneralDescriptionKey;
 import com.example.tour.models.CompositeKey.ObjectKey;
-import com.example.tour.models.CompositeKey.RoomKey;
 import com.example.tour.models.GeneralDescription;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class GeneralDescriptionService {
 
-    final GeneralDescriptionRepo generalDescriptionRepo;
-    final ObjectRepo objectRepo;
-    final AuthorityRepo authorityRepo;
+    private final GeneralDescriptionRepo generalDescriptionRepo;
+    private final ObjectRepo objectRepo;
+    private final AuthorityRepo authorityRepo;
 
-
-    public GeneralDescriptionService(GeneralDescriptionRepo generalDescriptionRepo, ObjectRepo objectRepo, AuthorityRepo authorityRepo) {
-        this.generalDescriptionRepo = generalDescriptionRepo;
-        this.objectRepo = objectRepo;
-        this.authorityRepo = authorityRepo;
-    }
 
     public List<GeneralDescription> getAllGeneralDescriptions()
     {

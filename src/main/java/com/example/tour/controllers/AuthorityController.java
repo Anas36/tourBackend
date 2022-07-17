@@ -3,24 +3,25 @@ package com.example.tour.controllers;
 //API Layer will be connected with the business logic layer (services)
 
 import com.example.tour.models.Authority;
-import com.example.tour.models.User;
 import com.example.tour.services.AuthorityService;
+import com.example.tour.services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("authorities")
+@RequiredArgsConstructor
 public class AuthorityController {
 
-    public AuthorityService authorityService;
+    private final AuthorityService authorityService;
+    private final UserService userService;
 
-    public AuthorityController(AuthorityService authorityService) {
-        this.authorityService = authorityService;
-    }
+
 
     @PostMapping()
-    void addAuthority(@RequestBody Authority authority) {authorityService.saveAuthority(authority);}
+    Authority addAuthority(@RequestBody Authority authority) {return (Authority) userService.saveUser(authority);}
     @GetMapping
     List<Authority> getAuthorities()  {
         return authorityService.getAllAuthoritys();

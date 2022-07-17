@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,15 +61,22 @@ public class Tour {
 
     @OneToMany(mappedBy = "tourId")
     @JsonIgnore
-    List<Advertisement> advertisements;
+    private List<Advertisement> advertisements;
 
     @OneToMany
     @JsonIgnore
     private Set<Ticket> tickets = new HashSet<>();
+
+
+//    @OneToMany(mappedBy = "tour", fetch = FetchType.LAZY, orphanRemoval = false)
+//    private Set<Checkpoint> checkpoints = new HashSet<>();
 
     @PrePersist
     private void onCreate() {
         creation_date = new Date();
     }
 
+    public void setCover_photo() {
+        this.cover_photo = "Tour_"+id+"_Cover_Photo";
+    }
 }

@@ -6,21 +6,19 @@ import com.example.tour.data.selectInterface.AvgTourCreatorRating;
 import com.example.tour.data.selectInterface.TourCreatorProfile;
 import com.example.tour.models.User;
 import com.example.tour.models.TourCreator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TourCreatorService {
-    final TourCreatorRepo tourCreatorRepo;
-    final TourRatingRepo tourRatingRepo;
 
+    private final TourCreatorRepo tourCreatorRepo;
+    private final TourRatingRepo tourRatingRepo;
 
-    public TourCreatorService(TourCreatorRepo tourCreatorRepo, TourRatingRepo tourRatingRepo) {
-        this.tourCreatorRepo = tourCreatorRepo;
-        this.tourRatingRepo = tourRatingRepo;
-    }
 
     public List<TourCreator> getAllTourCreators()
     {
@@ -34,6 +32,10 @@ public class TourCreatorService {
 
         }
         return result;
+    }
+
+    public boolean tourCreatorExists(String email) {
+        return tourCreatorRepo.existsByEmail(email);
     }
 
     public User getTourCreatorById(long id) {
@@ -50,9 +52,9 @@ public class TourCreatorService {
 
     }
 
-    public void saveTourCreator(TourCreator tourCreator) {
-        tourCreatorRepo.save(tourCreator);
-    }
+//    public void saveTourCreator(TourCreator tourCreator) {
+//        tourCreatorRepo.save(tourCreator);
+//    }
 
 
     public TourCreatorProfile getTourCreatorProfile(long id) {

@@ -3,19 +3,19 @@ package com.example.tour.services;
 import com.example.tour.data.AdvertiserRepo;
 import com.example.tour.models.User;
 import com.example.tour.models.Advertiser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AdvertiserService {
-    final AdvertiserRepo advertiserRepo;
+
+    private final AdvertiserRepo advertiserRepo;
 
 
-    public AdvertiserService(AdvertiserRepo advertiserRepo) {
-        this.advertiserRepo = advertiserRepo;
-    }
 
     public List<Advertiser> getAllAdvertisers()
     {
@@ -34,6 +34,10 @@ public class AdvertiserService {
             advertiserRepo.deleteById(id);
         }
 
+    }
+
+    public boolean advertiseryExists(String email) {
+        return advertiserRepo.existsByEmail(email);
     }
 
     public void saveAdvertiser(Advertiser advertiser) {

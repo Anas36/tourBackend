@@ -3,19 +3,23 @@ package com.example.tour.data;
 import com.example.tour.data.selectInterface.AvgTourCreatorRating;
 import com.example.tour.data.selectInterface.AvgTourRating;
 import com.example.tour.models.CompositeKey.TourRatingKey;
-import com.example.tour.models.Tour;
 import com.example.tour.models.TourRating;
-import net.minidev.json.JSONObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface TourRatingRepo extends JpaRepository<TourRating, TourRatingKey> {
+
+    List<Object> findByVisitorId(long id);
 
     @Query("SELECT  tr.visitor.first_name,tr.visitor.last_name,tr.rating FROM TourRating tr WHERE tr.tour.id= :tour_id")
     List<Object> findByTourId(@Param("tour_id") long tourID);
+
+
 
     @Query("SELECT  AVG(tr.rating) FROM TourRating tr WHERE tr.tour.tour_creator.id = :tour_creator_id")
     Double getTourCreatorRating(@Param("tour_creator_id") long tourCreatorId);
@@ -28,5 +32,6 @@ public interface TourRatingRepo extends JpaRepository<TourRating, TourRatingKey>
 
 
 
-
+//    @Query("SELECT " )
+//    void updateRecommendedRatings(List<TourRating> ratings);
 }

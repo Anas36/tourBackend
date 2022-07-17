@@ -6,10 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.HashSet;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "advertisers")
@@ -22,7 +23,10 @@ public class Advertiser extends User {
 
     @OneToMany(mappedBy = "advertiserId")
     @JsonIgnore
-    List<Advertisement> advertisements;
+    private List<Advertisement> advertisements;
 
+    public void setRole() {
+        super.setRole("ROLE_ADVERTISER");
     }
+}
 

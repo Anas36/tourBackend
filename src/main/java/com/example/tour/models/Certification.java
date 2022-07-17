@@ -33,4 +33,7 @@ public class Certification {
     private String content;
 
 
+    public void setContent() {
+        this.content = "Certification_"+id;
+    }
 }

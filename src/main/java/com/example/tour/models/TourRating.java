@@ -1,9 +1,7 @@
 package com.example.tour.models;
 
-import com.example.tour.models.CompositeKey.QuestionKey;
 import com.example.tour.models.CompositeKey.TourRatingKey;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,26 +29,17 @@ public class TourRating {
     @ManyToOne
     @JoinColumn(name = "visitor_id",insertable=false, updatable=false,nullable=false)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    Visitor visitor;
+    private Visitor visitor;
 
     @ManyToOne
     @JoinColumn(name = "tour_id",insertable=false, updatable=false,nullable=false)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    Tour tour;
+    private Tour tour;
 
     @Column(name = "rating")
-    int rating;
+    private int rating;
 
-//    public TourRating(Visitor visitor, Tour tour, int rating) {
-////        setId();
-//        this.id = id;
-//        this.visitor = visitor;
-//        this.tour = tour;
-//        this.rating = rating;
-//
-//    }
+    @Column(name = "recommended_rating")
+    private int recommendedRating;
 
-//    public void setId() {
-//        this.id = new TourRatingKey(visitor.getId(), tour.getId());
-//    }
 }

@@ -4,19 +4,17 @@ package com.example.tour.services;
 
 import com.example.tour.data.AdvertisementRepo;
 import com.example.tour.models.Advertisement;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AdvertisementService {
 
-    final AdvertisementRepo advertisementRepo;
+    private final AdvertisementRepo advertisementRepo;
 
-
-    public AdvertisementService(AdvertisementRepo advertisementRepo) {
-        this.advertisementRepo = advertisementRepo;
-    }
 
     public List<Advertisement> getAllAdvertisements()
     {

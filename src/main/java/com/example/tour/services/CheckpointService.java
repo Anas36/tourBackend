@@ -6,26 +6,20 @@ import com.example.tour.data.PlaceRepo;
 import com.example.tour.data.RoomRepo;
 import com.example.tour.models.Checkpoint;
 import com.example.tour.models.CompositeKey.CheckPointKey;
-import com.example.tour.models.CompositeKey.ObjectKey;
-import com.example.tour.models.CompositeKey.RoomKey;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CheckpointService {
-    final CheckpointRepo checkpointRepo;
-    final ObjectRepo objectRepo;
-    final PlaceRepo placeRepo;
-    final RoomRepo roomRepo;
 
+    private final CheckpointRepo checkpointRepo;
+    private final ObjectRepo objectRepo;
+    private final PlaceRepo placeRepo;
+    private final RoomRepo roomRepo;
 
-    public CheckpointService(CheckpointRepo checkpointRepo, ObjectRepo objectRepo, PlaceRepo placeRepo, RoomRepo roomRepo) {
-        this.checkpointRepo = checkpointRepo;
-        this.objectRepo = objectRepo;
-        this.placeRepo = placeRepo;
-        this.roomRepo = roomRepo;
-    }
 
     public List<Checkpoint> getAllCheckpoints()
     {
@@ -47,21 +41,11 @@ public class CheckpointService {
 
 
     public String saveCheckpoint(Checkpoint checkpoint) throws Exception {
-
-        if (!placeRepo.existsById(checkpoint.getPlaceId()))
-            throw new Exception("this place id doesn't exist");
-
-        if (!roomRepo.existsById(new RoomKey(checkpoint.getRoomId(), checkpoint.getPlaceId())))
-            throw new Exception("this room id doesn't exist");
-
-        if (!objectRepo.existsById(new ObjectKey(checkpoint.getObjectId(), checkpoint.getPlaceId(), checkpoint.getRoomId())))
-            throw new Exception("this object id doesn't exist");
-
-        if (checkpointRepo.existsById(new CheckPointKey(checkpoint.getId(), checkpoint.getTourId(), checkpoint.getObjectId(), checkpoint.getPlaceId(), checkpoint.getRoomId())))
+        if (checkpointRepo.existsById(new CheckPointKey(checkpoint.getId(), checkpoint.getTourId())))
             throw new Exception("this checkpoint id already exist");
 
-
-        checkpointRepo.save(checkpoint);
+        Checkpoint newCheckpoint = checkpointRepo.save(checkpoint);
+        newCheckpoint.setPhoto();
         return "checkpoint with id: " + checkpoint.getId() + " been added";
     }
 

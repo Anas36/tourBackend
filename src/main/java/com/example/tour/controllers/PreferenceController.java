@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("preferences")
 public class PreferenceController {
 
-    public PreferenceService preferenceService;
+    private final PreferenceService preferenceService;
 
     public PreferenceController(PreferenceService preferenceService) {
         this.preferenceService = preferenceService;

@@ -12,21 +12,23 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Advertisement {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "advertiser_id",nullable = false)
-    Advertiser advertiserId;
+    private Advertiser advertiserId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tour_id",nullable = false)
-    Tour tourId;
+    private Tour tourId;
 
-    String description;
+    private String description;
 
-    String cover_photo;
+    private String cover_photo;
 
+    public void setCover_photo() {
+        this.cover_photo  = "Advertisement_"+id+"_Cover_Photo";
+    }
 }

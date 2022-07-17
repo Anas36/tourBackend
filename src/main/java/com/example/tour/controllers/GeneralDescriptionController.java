@@ -2,26 +2,20 @@ package com.example.tour.controllers;
 
 //API Layer will be connected with the business logic layer (services)
 
-import com.example.tour.models.Checkpoint;
 import com.example.tour.models.CompositeKey.GeneralDescriptionKey;
-import com.example.tour.models.CompositeKey.ObjectKey;
 import com.example.tour.models.GeneralDescription;
 import com.example.tour.services.GeneralDescriptionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("description/general")
+@RequiredArgsConstructor
 public class GeneralDescriptionController {
 
-    public GeneralDescriptionService generalDescriptionService;
-
-    @Autowired
-    public GeneralDescriptionController(GeneralDescriptionService generalGeneralDescriptionService) {
-        this.generalDescriptionService = generalGeneralDescriptionService;
-    }
+    private final GeneralDescriptionService generalDescriptionService;
 
     @GetMapping
     List<GeneralDescription> getGeneralDescriptions()  {

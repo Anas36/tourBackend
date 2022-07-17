@@ -5,21 +5,17 @@ package com.example.tour.controllers;
 import com.example.tour.models.CompositeKey.GeneralDescriptionKey;
 import com.example.tour.models.GeneralDescription;
 import com.example.tour.services.GeneralDescriptionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-//@RequestMapping("description/preferences")
+@RequestMapping("description/preferences")
+@RequiredArgsConstructor
 public class DescriptionPreferencesController {
 
-    public GeneralDescriptionService generalDescriptionService;
-
-    @Autowired
-    public DescriptionPreferencesController(GeneralDescriptionService generalGeneralDescriptionService) {
-        this.generalDescriptionService = generalGeneralDescriptionService;
-    }
+    private final GeneralDescriptionService generalDescriptionService;
 
     @GetMapping
     List<GeneralDescription> getGeneralDescriptions()  {

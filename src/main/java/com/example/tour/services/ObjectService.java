@@ -8,27 +8,19 @@ import com.example.tour.models.CompositeKey.ObjectKey;
 import com.example.tour.models.CompositeKey.RoomKey;
 import com.example.tour.models.GeneralDescription;
 import com.example.tour.models.Object;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ObjectService {
-    final ObjectRepo objectRepo;
-    final PlaceRepo placeRepo;
-    final RoomRepo roomRepo;
-    final GeneralDescriptionRepo generalDescriptionRepo;
 
-
-    @Autowired
-    public ObjectService(ObjectRepo objectRepo, PlaceRepo placeRepo, RoomRepo roomRepo, GeneralDescriptionRepo generalDescriptionRepo) {
-        this.objectRepo = objectRepo;
-        this.placeRepo = placeRepo;
-        this.roomRepo = roomRepo;
-        this.generalDescriptionRepo = generalDescriptionRepo;
-    }
-
+    private final ObjectRepo objectRepo;
+    private final PlaceRepo placeRepo;
+    private final RoomRepo roomRepo;
+    private final GeneralDescriptionRepo generalDescriptionRepo;
 
 
     public List<Object> getAllObjects()
@@ -55,7 +47,9 @@ public class ObjectService {
             throw new Exception("there is no place with this id");
         if(!roomRepo.existsById(new RoomKey(object.getRoomId(),object.getPlaceId())))
             throw new Exception("there is no room with this id");
-        objectRepo.save(object);
+        Object newObject = objectRepo.save(object);
+        newObject.setCoverPhoto();
+
         return "object been added successfully";
     }
 

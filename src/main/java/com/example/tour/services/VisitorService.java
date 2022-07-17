@@ -1,21 +1,18 @@
 package com.example.tour.services;
 
 import com.example.tour.data.VisitorRepo;
-import com.example.tour.models.User;
 import com.example.tour.models.Visitor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class VisitorService {
-    final VisitorRepo visitorRepo;
 
+    private final VisitorRepo visitorRepo;
 
-    public VisitorService(VisitorRepo visitorRepo) {
-        this.visitorRepo = visitorRepo;
-    }
 
     public List<Visitor> getAllVisitors()
     {
@@ -24,6 +21,10 @@ public class VisitorService {
 
     public Visitor getVisitorById(long id) {
         return visitorRepo.findById(id).orElse(null);
+    }
+
+    public Visitor getVisitorByEmail(String  email) {
+        return (Visitor) visitorRepo.findByEmail(email).orElse(null);
     }
 
     public void deleteVisitorById(long id) {
@@ -35,7 +36,12 @@ public class VisitorService {
 
     }
 
+    public boolean visitorExists(String email) {
+        return visitorRepo.existsByEmail(email);
+    }
+
     public void saveVisitor(Visitor visitor) {
+
         visitorRepo.save(visitor);
     }
 }

@@ -2,7 +2,6 @@ package com.example.tour.controllers;
 
 import com.example.tour.data.selectInterface.AvgTourRating;
 import com.example.tour.models.Tour;
-import com.example.tour.models.TourRating;
 import com.example.tour.services.TicketService;
 import com.example.tour.services.TourRatingService;
 import com.example.tour.services.TourService;
@@ -46,14 +45,14 @@ public class TourController {
         return tourRatingService.getTourRatings(id);
     }
 
-    @DeleteMapping("{id}")
-    public String deleteTourById(@PathVariable long id){
-        return tourService.deleteTourById(id);
-    }
-
     @PostMapping
     public String addTour(@RequestBody Tour tour){
         return tourService.saveTour(tour);
+    }
+
+    @DeleteMapping("{id}")
+    public String deleteTourById(@PathVariable long id){
+        return tourService.deleteTourById(id);
     }
 
     @GetMapping("/count")

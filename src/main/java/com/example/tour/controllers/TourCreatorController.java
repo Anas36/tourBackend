@@ -4,13 +4,13 @@ package com.example.tour.controllers;
 
 import com.example.tour.data.selectInterface.AvgTourCreatorRating;
 import com.example.tour.data.selectInterface.TourCreatorProfile;
-import com.example.tour.models.Object;
 import com.example.tour.models.Tour;
 import com.example.tour.models.TourCreator;
 import com.example.tour.services.TourCreatorService;
 import com.example.tour.services.TourRatingService;
 import com.example.tour.services.TourService;
-import net.minidev.json.JSONObject;
+import com.example.tour.services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,37 +18,29 @@ import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("tourCreators")
+@RequiredArgsConstructor
 public class TourCreatorController {
 
-    public TourCreatorService tourCreatorService;
-    public TourRatingService tourRatingService;
-    public TourService tourService;
+    private final TourCreatorService tourCreatorService;
+    private final TourRatingService tourRatingService;
+    private final TourService tourService;
+    private final UserService userService;
 
 
-    public TourCreatorController(TourCreatorService tourCreatorService, TourRatingService tourRatingService, TourService tourService) {
-        this.tourCreatorService = tourCreatorService;
-        this.tourRatingService = tourRatingService;
-        this.tourService = tourService;
-    }
 
     @PostMapping()
-    void addTourCreator(@RequestBody TourCreator tourCreator)  {
-        tourCreatorService.saveTourCreator(tourCreator);
+    TourCreator addTourCreator(@RequestBody TourCreator tourCreator)  {
+        tourCreator.setRole();
+        return (TourCreator) userService.saveUser(tourCreator);
     }
     @GetMapping
     List<TourCreator> getTourCreators()  {
         return tourCreatorService.getAllTourCreators();
     }
     @GetMapping("/{id}")
-    TourCreator getTourCreator(@PathVariable long id) throws Exception {
-        try
-        {
-            return (TourCreator)tourCreatorService.getTourCreatorById(id);
-        }
-        catch(Exception e){
-            throw new Exception("there is no TourCreator with this ID");
-        }
+    TourCreator getTourCreator(@PathVariable long id) {
 
+            return (TourCreator)tourCreatorService.getTourCreatorById(id);
     }
 
     @GetMapping("{id}/tours")

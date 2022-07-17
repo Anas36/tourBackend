@@ -24,12 +24,12 @@ public class GeneralDescription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
     @Id
     @Column(name = "authority_id",nullable=false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    long authorityId;
+    private long authorityId;
 
 
     @Id

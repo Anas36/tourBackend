@@ -26,24 +26,14 @@ public class ExtraDescription {
     private long id;
 
     @Id
-    @Column(name = "tour_creator_id")
+    @Column(name = "tour_id",nullable=false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private long tourCreatorId;
+    private long tourId;
 
     @Id
-    @Column(name = "object_id",nullable=false)
+    @Column(name = "check_point_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private long objectId;
-
-    @Id
-    @Column(name = "place_id",nullable=false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private long placeId;
-
-    @Id
-    @Column(name = "room_id",nullable=false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private long roomId;
+    private long checkPointId;
 
     @Column(name = "content")
     private String content;
@@ -56,29 +46,17 @@ public class ExtraDescription {
 
     @Column(name = "content_type")
     private String content_type;
+//
+//    @ManyToOne(optional=false,cascade = CascadeType.ALL)
+//    @JoinColumn(name = "tour_id",referencedColumnName="id",insertable=false, updatable=false,nullable=false)
+//    @JsonIgnore
+//    private Tour tour;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "check_point_id",referencedColumnName = "id",insertable=false, updatable=false,nullable=false)
+//    @JoinColumn(name = "tour_id",referencedColumnName="tour_id",insertable=false, updatable=false,nullable=false)
+//    private Checkpoint checkPoint;
 
-    @ManyToOne(optional=false,cascade = CascadeType.ALL)
-    @JoinColumn(name = "tour_creator_id",referencedColumnName="user_id",insertable=false, updatable=false,nullable=false)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private TourCreator tourCreator;
-
-    @ManyToOne(optional=false,cascade = CascadeType.ALL)
-    @JoinColumn(name = "place_id",referencedColumnName="id",insertable=false, updatable=false,nullable=false)
-    @JsonIgnore
-    private Place place;
-
-    @ManyToOne(optional=false,cascade = CascadeType.ALL)
-    @JoinColumn(name = "room_id",referencedColumnName="id",insertable=false, updatable=false,nullable=false)
-    @JoinColumn(name = "place_id",referencedColumnName="place_id",insertable=false, updatable=false,nullable=false)
-    @JsonIgnore
-    private Room room;
-
-    @ManyToOne(optional=false,cascade = CascadeType.ALL)
-    @JoinColumn(name = "room_id",referencedColumnName="room_id",insertable=false, updatable=false,nullable=false)
-    @JoinColumn(name = "place_id",referencedColumnName="place_id",insertable=false, updatable=false,nullable=false)
-    @JoinColumn(name = "object_id",referencedColumnName="id",insertable=false, updatable=false,nullable=false)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Object object;
 
 
 }

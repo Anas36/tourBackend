@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import com.example.tour.models.Certification;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,21 +20,10 @@ public class Authority extends User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "authority",cascade = CascadeType.ALL)
-    List<Certification> acceptedCertifications;
+    private List<Certification> acceptedCertifications;
 
-    @Override
-    public String toString() {
-        return "Authority{" +
-                "id=" + id +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", birth='" + birth + '\'' +
-                ", gender='" + gender + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+    public void setRole() {
+        super.setRole("ROLE_AUTHORITY");
     }
 }
 

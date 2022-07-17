@@ -4,6 +4,7 @@ package com.example.tour.controllers;
 
 import com.example.tour.models.Advertisement;
 import com.example.tour.services.AdvertisementService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,13 +14,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("advertisements")
+@RequiredArgsConstructor
 public class AdvertisementController {
 
-    public AdvertisementService advertisementService;
+    private final AdvertisementService advertisementService;
 
-    public AdvertisementController(AdvertisementService advertisementService) {
-        this.advertisementService = advertisementService;
-    }
 
     @GetMapping
     List<Advertisement> getAdvertisements()  {
